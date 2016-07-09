@@ -1,0 +1,12 @@
+
+- name: add rpm repository
+  sudo: yes
+  get_url:
+    url: https://bintray.com/sbt/rpm/rpm
+    dest: /etc/yum.repos.d/bintray-sbt-rpm.repo
+
+- name: install sbt
+  sudo: yes
+  package:
+    name: sbt
+    state: latest

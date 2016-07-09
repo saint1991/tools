@@ -1,0 +1,29 @@
+
+- name: "Install Monit"
+  sudo: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - epel-release
+    - monit
+
+- name: "Create Monit config file"
+  sudo: yes
+  template:
+    src: "{{ item | basename }}"
+    dest: "{{ item }}"
+    backup: yes
+  with_items:
+    - /etc/monit.conf
+    - /etc/monit.d/redis.conf
+  notify:
+    - restart_monit
+
+- name: "Start Monit"
+  sudo: yes
+  service:
+    name: monit
+    state: started
+    enabled: yes
+

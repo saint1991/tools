@@ -1,0 +1,15 @@
+- name: fetch oh-my-zsh
+  sudo: yes
+  get_url:
+    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: /usr/local/src/install.sh
+
+- name: change mode of install.sh
+  sudo: yes
+  file:
+    mode: 755
+    path: /usr/local/src/install.sh
+
+- name: install oh-my-zsh
+  sudo: yes
+  shell: /usr/local/src/install.sh

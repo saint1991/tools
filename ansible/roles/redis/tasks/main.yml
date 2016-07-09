@@ -1,0 +1,38 @@
+
+- name: "Add repository"
+  sudo: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - epel-release
+
+- name: "Install Redis"
+  sudo: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - epel-release
+    - redis.x86_64
+
+- name: "Create Redis Config"
+  sudo: yes
+  template:
+    src: "{{ item | basename }}"
+    dest: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  with_items:
+    - /etc/redis.conf
+  notify:
+    - restart_redis
+
+- name: "Start Redis"
+  sudo: yes
+  service:
+    name: "redis"
+    state: started
+    enabled: yes

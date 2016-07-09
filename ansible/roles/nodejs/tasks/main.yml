@@ -1,0 +1,10 @@
+- name: install build-essential
+  package: name=build-essential
+- name: install libssl-dev
+  package: name=libssl-dev state=latest
+- name: curl nvm
+  get_url: url="https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh" dest=/home/saint1991
+- name: change permission
+  file: mode=755 path=/home/saint1991/install.sh
+- name: install nvm
+  shell: /home/saint1991/install.sh

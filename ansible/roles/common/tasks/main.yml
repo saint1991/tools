@@ -1,0 +1,12 @@
+- name: install common development tools
+  sudo: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - curl
+    - git
+    - tar
+    - vim
+    - wget
+    - zsh
