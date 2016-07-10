@@ -1,6 +1,7 @@
 
 variable "master_username" {}
 variable "master_password" {}
+variable "node_count" {}
 
 resource "google_container_cluster" "api_cluster" {
 

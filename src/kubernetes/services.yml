@@ -1,0 +1,16 @@
+
+# autoscaler config
+apiVersion: extensions/v1beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: api-as
+  namespace: default
+spec:
+  scaleRef:
+    kind: Deployment
+    name: api-as
+    subresource: scale
+  minReplicas: 4
+  maxReplicas: 24
+  cpuUtilization:
+    targetPercentage: 60

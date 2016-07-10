@@ -1,1 +1,1 @@
-- include: databases.yml
+- include: local.yml
