@@ -1,11 +1,6 @@
 
-variable "master_uname" {
-  type = "string"
-}
-
-variable "master_pass" {
-  type = "string"
-}
+variable "master_username" {}
+variable "master_password" {}
 
 resource "google_container_cluster" "api_cluster" {
 
@@ -27,8 +22,8 @@ resource "google_container_cluster" "api_cluster" {
   monitoring_service = "monitoring.googleapis.com"
 
   master_auth {
-    username = "${var.master_uname}"
-    password = "${var.master_pass}"
+    username = "${var.master_username}"
+    password = "${var.master_password}"
   }
 }
 

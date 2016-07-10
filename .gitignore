@@ -1,2 +1,7 @@
+
+# Terraform
 *.tfvars
+*.tfstate
+*.tfstate.backup
 src/terraform/GCP/credentials/*
+.terraform
