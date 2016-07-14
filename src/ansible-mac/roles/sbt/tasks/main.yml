@@ -1,0 +1,5 @@
+
+- name: install sbt
+  package:
+    name: sbt
+    state: latest

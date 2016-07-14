@@ -1,0 +1,9 @@
+
+- name: curl nvm
+  get_url:
+    url: "https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh"
+    dest: "/tmp/install-nvm.sh"
+    mode: 0755
+
+- name: install nvm
+  shell: /tmp/install-nvm.sh

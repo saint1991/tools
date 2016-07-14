@@ -1,0 +1,9 @@
+- name: Install Docker
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - docker
+    - boot2docker
+    - docker-machine
+    - docker-compose

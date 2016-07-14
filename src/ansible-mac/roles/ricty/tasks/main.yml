@@ -1,0 +1,14 @@
+- name: tap Ricty Repository
+  homebrew_tap:
+    state: present
+    tap: sanemat/font
+
+- name: install xquartz
+  homebrew_cask:
+    name: xquartz
+    state: present
+
+- name: install Ricty
+  package:
+    name: ricty
+    state: latest

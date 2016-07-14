@@ -1,0 +1,8 @@
+
+- name: Install golang
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - go
+    - glide

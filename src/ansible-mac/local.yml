@@ -1,0 +1,11 @@
+- hosts: local-machine
+  roles:
+    - common
+    - docker
+    - golang
+    - nodejs
+    - oh-my-zsh
+    - php
+    - ricty
+    - sbt
+    - terraform

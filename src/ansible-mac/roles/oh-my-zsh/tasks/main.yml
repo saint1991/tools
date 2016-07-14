@@ -1,0 +1,8 @@
+- name: fetch oh-my-zsh
+  get_url:
+    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: /tmp/install-oh-my-zsh.sh
+    mode: 0755
+
+- name: install oh-my-zsh
+  shell: /tmp/install-oh-my-zsh.sh

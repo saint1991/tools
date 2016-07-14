@@ -1,13 +1,14 @@
 - name: install common development tools
-  sudo: yes
   package:
     name: "{{ item }}"
     state: latest
   with_items:
     - curl
     - git
-    - tar
     - tree
     - vim
     - wget
     - zsh
+
+- name: make all hidden files visible on finder
+  shell: defaults write com.apple.finder AppleShowAllFiles TRUE

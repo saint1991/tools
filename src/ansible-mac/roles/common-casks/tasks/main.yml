@@ -1,0 +1,21 @@
+
+- name: tap cask
+  homebrew_tap:
+    tap: caskroom/cask
+    state: latest
+
+- name: install common casks
+  homebrew_cask:
+    name: "{{ item }} "
+    state: present
+  with_items:
+    - chatwork
+    - filezilla
+    - intellij-idea
+    - java
+    - sequel-pro
+    - slack
+    - sourcetree
+    - sublime-text
+    - virtualbox
+    - vivaldi

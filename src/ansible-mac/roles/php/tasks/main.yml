@@ -1,0 +1,14 @@
+
+- name: add repositories
+  homebrew_tap:
+    tap: "{{ item }}"
+    state: present
+  with_items:
+    - homebrew/dupes
+    - homebrew/versions
+    - homebrew/homebrew-php
+
+- name: install php7
+  package:
+    name: php71
+    state: latest
