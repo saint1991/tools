@@ -1,7 +1,4 @@
 - hosts: local-machine
   roles:
     - common
-    - docker
-    - nodejs
-    - oh-my-zsh
-    - sbt
+    - docker-mac
