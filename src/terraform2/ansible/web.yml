@@ -1,0 +1,4 @@
+- name: web-provisioning
+  hosts: api
+  roles:
+    - nodejs

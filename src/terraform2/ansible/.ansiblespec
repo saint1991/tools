@@ -1,0 +1,5 @@
+---
+-
+  playbook: site.yml
+  inventory: aws/inventory
+  hash_behavior: merge
