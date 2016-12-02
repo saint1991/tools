@@ -1,0 +1,8 @@
+- name: vagrant-provisioning-test
+  hosts: default
+  become: yes
+  roles:
+    - common
+    - nginx
+    - nodejs
+    - mongodb

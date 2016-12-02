@@ -1,0 +1,8 @@
+- name: install Node.js and npm
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - nodejs
+    - npm

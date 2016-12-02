@@ -1,0 +1,7 @@
+- name: "common tools installation"
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - epel-release

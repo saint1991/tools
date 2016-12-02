@@ -1,0 +1,36 @@
+- name: "add the mongodb repository"
+  become: yes
+  copy: 
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: "install mongodb"
+  become: yes
+  package:  
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+    - mongodb-org
+
+- name: "copy mongod.conf to the host"
+  become: yes
+  copy:
+    src: mongod.conf
+    dest: /etc/mongod.conf
+  notify:
+    restart_mongod
+
+- name: "create directory to put pid file"
+  become: yes
+  file:
+    state: directory
+    path: "/var/run/mongo"
+    owner: mongod
+    mode: 0755
+
+- name: "start and enable mongod"
+  become: yes
+  service:
+    name: mongod
+    state: started
+    enabled: yes 
