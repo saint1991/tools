@@ -15,6 +15,16 @@ resource "aws_instance" "db" {
   instance_initiated_shutdown_behavior = "terminate"
 
   monitoring = true
+
+  provisioner "remote-exec" {
+    inline = "echo \"connection established!\""
+    connection {
+      type = "ssh"
+      user = "${var.ansible_ssh_user}"
+      timeout = "1m"
+      private_key = "${file(var.private_key)}"
+    }
+  }
 }
 
 resource "aws_ebs_volume" "db_volume" {
@@ -40,7 +50,7 @@ resource "aws_volume_attachment" "volume_attachment" {
 resource "null_resource" "db_inventory" {
   depends_on = ["null_resource.init-inventory"]
   provisioner  "local-exec" {
-    command = "echo \"\n[db]\n${join("\n", formatlist("%s ansible_ssh_user=ec2-user ansible_ssh_private_key_file=%s", aws_instance.db.*.public_ip, var.private_key))}\" >> $$PWD/../ansible/aws/inventory"
+    command = "echo \"\n[db]\n${join("\n", formatlist("%s ansible_ssh_user=%s ansible_ssh_private_key_file=%s", aws_instance.db.*.public_ip, var.ansible_ssh_user, var.private_key))}\" >> ${var.inventory_path}"
   }
 }
 

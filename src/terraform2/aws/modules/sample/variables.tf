@@ -18,5 +18,10 @@ variable "volume_type" { default = "gp2"}
 variable "amazon_linux_ami" { default = "ami-0c11b26d" }
 variable "redhat_ami" { default = "ami-5de0433c" }
 
+// for ansible
+variable "ansible_path" { default = "$PWD/../ansible"}
+variable "inventory_path" { default = "$PWD/../ansible/aws/inventory"}
+variable "ansible_ssh_user" { default = "ec2-user" }
+
 variable "mongodb_count" { default = 2 }
 variable "nodejs_count" { default = 2 }
