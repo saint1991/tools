@@ -38,6 +38,7 @@ resource "aws_volume_attachment" "volume_attachment" {
 
 
 resource "null_resource" "db_inventory" {
+  depends_on = ["null_resource.init-inventory"]
   provisioner  "local-exec" {
     command = "echo \"\n[db]\n${join("\n", formatlist("%s ansible_ssh_user=ec2-user ansible_ssh_private_key_file=%s", aws_instance.db.*.public_ip, var.private_key))}\" >> $$PWD/../ansible/aws/inventory"
   }

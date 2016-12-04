@@ -15,6 +15,7 @@ resource "aws_instance" "api" {
 }
 
 resource "null_resource" "api_inventory" {
+  depends_on = ["null_resource.init-inventory"]
   provisioner  "local-exec" {
     command = "echo \"\n[api]\n${join("\n", formatlist("%s ansible_ssh_user=ec2-user ansible_ssh_private_key_file=%s", aws_instance.api.*.public_ip, var.private_key))}\" >> $$PWD/../ansible/aws/inventory"
   }
