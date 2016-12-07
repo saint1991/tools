@@ -1,0 +1,64 @@
+
+- name: create directory for prometheus
+  become: yes
+  file:
+    path: "{{item}}"
+    force: yes
+    state: directory
+  with_items:
+    - /usr/local/prometheus/prometheus
+    - /usr/local/prometheus/alertmanager
+
+- name: downloads prometheus
+  become: yes
+  get_url:
+    url: https://github.com/prometheus/prometheus/releases/download/v1.4.1/prometheus-1.4.1.linux-amd64.tar.gz
+    dest: /usr/local/prometheus/prometheus.tar.gz
+
+- name: downloads alertmanager
+  become: yes
+  get_url:
+    url: https://github.com/prometheus/alertmanager/releases/download/v0.5.1/alertmanager-0.5.1.linux-amd64.tar.gz
+    dest: /usr/local/prometheus/alertmanager.tar.gz
+
+- name: unarchive prometheus
+  become: yes
+  command: tar xvzf /usr/local/prometheus/prometheus.tar.gz  -C /usr/local/prometheus/prometheus --strip-components 1
+  args:
+    creates: /usr/local/prometheus/prometheus/prometheus
+
+
+- name: unarchive alertmanager
+  become: yes
+  command: tar xvzf /usr/local/prometheus/alertmanager.tar.gz -C /usr/local/prometheus/alertmanager --strip-components 1
+  args:
+    creates: /usr/local/prometheus/alertmanager/alertmanager
+
+- name: add permission
+  become: yes
+  file:
+    path: "{{item}}"
+    mode: 0755
+  with_items:
+    - /usr/local/prometheus/prometheus/prometheus
+    - /usr/local/prometheus/alertmanager/alertmanager
+
+- name: copy prometheus conf
+  become: yes
+  copy:
+    src: prometheus.yml
+    dest: /usr/local/prometheus/prometheus/prometheus.yml
+
+- name: copy alertmanager conf
+  become: yes
+  copy:
+    src: alertmanager.yml
+    dest: /usr/local/prometheus/alertmanager/alertmanager.yml
+
+- name: start prometheus
+  become: yes
+  shell: /usr/local/prometheus/prometheus/prometheus -config.file=/usr/local/prometheus/prometheus/prometheus.yml &
+  args:
+    removes: /usr/local/prometheus/prometheus/prometheus
+
+

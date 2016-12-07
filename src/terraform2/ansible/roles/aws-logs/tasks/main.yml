@@ -1,0 +1,36 @@
+- name: create directory to put aws-log-agent
+  become: yes
+  file:
+    path: /usr/local/aws-log-agent
+    force: yes
+    state: directory
+
+- name: download aws-logs-agent
+  become: yes
+  get_url:
+    url: https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py
+    dest: /usr/local/aws-log-agent/awslogs.py
+    mode: 0755
+
+- name: check if conf file is exists in /tmp
+  become: yes
+  stat:
+    path: /tmp/awslogs.cfg
+  register: cfg_file_check
+
+- name: copy from /tmp to /usr/local/aws-logs-agent if exists
+  become: yes
+  command: mv -f /tmp/awslogs.cfg /usr/local/aws-log-agent/awslogs.cfg
+  when: cfg_file_check.stat.exists == True
+
+- name: put config file if it does not exist in /tmp
+  become: yes
+  copy:
+    src: awslogs.cfg
+    dest: /usr/local/aws-log-agent/awslogs.cfg
+    mode: 0755
+  when: cfg_file_check.stat.exists == False
+
+- name: start aws-logs-agent
+  become: yes
+  command: /usr/local/aws-log-agent/awslogs.py -n -r ap-northeast-1 -c /usr/local/aws-log-agent/awslogs.cfg

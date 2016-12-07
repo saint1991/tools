@@ -1,4 +1,6 @@
 - name: web-provisioning
   hosts: api
   roles:
+    - nginx
     - nodejs
+    - aws-logs

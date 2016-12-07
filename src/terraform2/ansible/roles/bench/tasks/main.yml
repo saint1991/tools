@@ -1,0 +1,11 @@
+- name: install fio
+  become: yes
+  package:
+    name: fio
+    state: latest
+
+- name: upload benchmark script
+  become: yes
+  copy:
+    src: bench.sh
+    dest: /home/ec2-user/bench.sh

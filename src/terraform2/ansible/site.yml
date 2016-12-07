@@ -1,2 +1,3 @@
 - include: web.yml
 - include: db.yml
+- include: prometheus.yml

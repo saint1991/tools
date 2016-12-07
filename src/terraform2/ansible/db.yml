@@ -2,3 +2,5 @@
   hosts: db
   roles:
     - mongodb
+    - bench
+    - aws-logs

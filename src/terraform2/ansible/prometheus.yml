@@ -1,0 +1,5 @@
+- name: prometheus-provisioning
+  hosts: prometheus
+  roles:
+    - prometheus-server
+    - aws-logs

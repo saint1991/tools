@@ -1,0 +1,26 @@
+- name: "add the Nginx repository"
+  become: yes
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm 
+
+- name: "install Nginx"
+  become: yes
+  yum:
+    name: "{{ item }}"
+    state: latest
+    enablerepo:  "nginx"
+  with_items:
+    - nginx
+
+- name: "start and enable nginx service"
+  become: yes
+  service: 
+    name: nginx  
+    state: started
+    enabled: yes 
+
+
+
